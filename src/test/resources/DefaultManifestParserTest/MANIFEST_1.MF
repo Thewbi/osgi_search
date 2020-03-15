@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-Category: com.prosyst.mbs.bluetooth.le
+Bundle-Description: Provides general Bluetooth LE interfaces, general GA
+ TT interfaces, officially adopted GATT Service, Characteristic and Desc
+ riptor interfaces and the service provider interface.
+Bundle-DocURL: http://dz.prosyst.com/pdoc/
+Bundle-ManifestVersion: 2
+Bundle-Name: Bluetooth LE :: Driver :: API
+Bundle-RequiredExecutionEnvironment: OSGi/Minimum-1.2
+Bundle-SymbolicName: com.prosyst.mbs.bluetooth.le.driver.api; singleton:
+ =true
+Bundle-Vendor: ProSyst Software GmbH
+Bundle-Version: 1.1.0
+Export-Package: com.prosyst.mbs.services.btle;version="1.1.0",com.prosys
+ t.mbs.services.btle.gatt.characteristic;version="1.1.0",com.prosyst.mbs
+ .services.btle.gatt.descriptor;version="1.1.0",com.prosyst.mbs.services
+ .btle.gatt.service;version="1.1.0",com.prosyst.mbs.services.btle.gatt.t
+ ype;version="1.1.0",com.prosyst.mbs.services.btle.utils;version="1.1.0"
+X-ProSyst-Jira: https://devzone.prosyst.bg/jira/browse/MBSBLUELE
