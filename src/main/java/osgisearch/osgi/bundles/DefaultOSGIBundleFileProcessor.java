@@ -33,15 +33,20 @@ public class DefaultOSGIBundleFileProcessor implements OSGIBundleFileProcessor {
 
 		logger.info(path);
 
-		// DEBUG
-		if (!StringUtils.equals(
-//				"C:\\dev\\mbs-sh-sdk\\runtime\\osgi\\bundles\\com.prosyst.mbs.bluetooth.le.driver.service.provider.jar",
-//				"C:\\dev\\mbs-sh-sdk\\runtime\\osgi\\bundles\\com.prosyst.mbs.cameras.hdm.api.jar",
-//				"C:\\dev\\mbs-sh-sdk\\runtime\\osgi\\bundles\\com.prosyst.mbs.comm.api.jar",
-				"C:\\dev\\mbs-sh-sdk\\runtime\\osgi\\bundles\\com.prosyst.mbs.devstreams.api.jar",
-				path.toFile().getAbsolutePath())) {
-			return;
-		}
+//		// DEBUG
+//		if (!StringUtils.equals(
+////				"C:\\dev\\mbs-sh-sdk\\runtime\\osgi\\bundles\\com.prosyst.mbs.bluetooth.le.driver.service.provider.jar",
+////				"C:\\dev\\mbs-sh-sdk\\runtime\\osgi\\bundles\\com.prosyst.mbs.cameras.hdm.api.jar",
+////				"C:\\dev\\mbs-sh-sdk\\runtime\\osgi\\bundles\\com.prosyst.mbs.comm.api.jar",
+////				"C:\\dev\\mbs-sh-sdk\\runtime\\osgi\\bundles\\com.prosyst.mbs.devstreams.api.jar",
+////				"C:\\dev\\mbs-sh-sdk\\runtime\\osgi\\bundles\\xml-apis.jar", 
+////				"C:\\dev\\mbs-sh-sdk\\runtime\\osgi\\bundles\\com.prosyst.mbs.zwave.device.configuration.custom.jar",
+////				"C:\\dev\\mbs-sh-sdk\\runtime\\osgi\\bundles\\gson.jar"
+//				"C:\\PR_TBE\\GitCheckouts\\cu450-cockpit\\External\\develop-image-security-updates\\target\\bundles\\javassist-3.18.1-GA.jar",
+//				path.toFile().getAbsolutePath())) {
+//
+//			return;
+//		}
 
 		try (ZipFile zipFile = new ZipFile(path.toFile())) {
 
@@ -76,9 +81,9 @@ public class DefaultOSGIBundleFileProcessor implements OSGIBundleFileProcessor {
 				}
 			}
 		} catch (final ZipException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		} catch (final IOException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 

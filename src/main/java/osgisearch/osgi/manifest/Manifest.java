@@ -80,4 +80,56 @@ public interface Manifest {
 
 	void setHomeDeviceMetaData(String homeDeviceMetaData);
 
+	String getLocalization();
+
+	void setLocalization(String localization);
+
+	String getExportService();
+
+	void setExportService(String exportService);
+
+	String getContactAddress();
+
+	void setContactAddress(String contactAddress);
+
+	String getLicence();
+
+	void setLicence(String licence);
+
+	String getCopyright();
+
+	void setCopyright(String copyright);
+
+	String getDevelopers();
+
+	void setDevelopers(String developers);
+
+	String getScm();
+
+	void setScm(String scm);
+
+	String getProvideCapability();
+
+	void setProvideCapability(String provideCapability);
+
+	String getCreatedBy();
+
+	void setCreatedBy(String createdBy);
+
+	String getBuildJdk();
+
+	void setBuildJdk(String buildJdk);
+
+	String getArchiverVersion();
+
+	void setArchiverVersion(String archiverVersion);
+
+	String getBuiltBy();
+
+	void setBuiltBy(String builtBy);
+
+	String getBuiltAt();
+
+	void setBuiltAt(String builtAt);
+
 }

@@ -18,12 +18,29 @@ public class ConvertStringToManifestStep implements ManifestParserStep {
 		final String[] split = manifestAsStringTrimmed.split("\n");
 
 		StringBuilder stringBuilder = new StringBuilder();
+		boolean firstLine = true;
 
-		for (final String line : split) {
+		for (String line : split) {
+
+			if (StringUtils.isBlank(line)) {
+				continue;
+			}
+
+//			Name: OSGI-OPT/src/org/osgi/framework/BundlePermission.java
+//			MD5-Digest: kjL+seyOi2V40Yvt6wAyDQ==
+//			SHA-Digest: 4gtbUbf28vwuC5aO8ppOQEKFBP8=
+
+			if (StringUtils.startsWith(line, "Name: ") || StringUtils.startsWith(line, "MD5-Digest: ")
+					|| StringUtils.startsWith(line, "SHA-Digest: ") || StringUtils.startsWith(line, "SHA1-Digest: ")) {
+				continue;
+			}
 
 			if (StringUtils.startsWith(line, "Manifest-") || StringUtils.startsWith(line, "Bundle-")
 					|| StringUtils.startsWith(line, "Export-") || StringUtils.startsWith(line, "Import-")
-					|| StringUtils.startsWith(line, "HomeDevice-MetaData") || StringUtils.startsWith(line, "X-")) {
+					|| StringUtils.startsWith(line, "Provide-") || StringUtils.startsWith(line, "HomeDevice-")
+					|| StringUtils.startsWith(line, "Archiver-") || StringUtils.startsWith(line, "Created-")
+					|| StringUtils.startsWith(line, "Build-") || StringUtils.startsWith(line, "Built-")
+					|| StringUtils.startsWith(line, "Specification-") || StringUtils.startsWith(line, "X-")) {
 
 				if (stringBuilder.length() > 0) {
 
@@ -31,10 +48,24 @@ public class ConvertStringToManifestStep implements ManifestParserStep {
 				}
 
 				stringBuilder = new StringBuilder();
+				firstLine = true;
 			}
 
-			stringBuilder.append(StringUtils.trim(line));
+			// stringBuilder.append(StringUtils.trim(line));
 
+			line = StringUtils.removeEnd(StringUtils.removeEnd(line, "\r"), "\n");
+
+			if (firstLine) {
+				stringBuilder.append(line);
+			} else {
+				try {
+					stringBuilder.append(line.substring(1));
+				} catch (final StringIndexOutOfBoundsException e) {
+					logger.info(line);
+				}
+			}
+
+			firstLine = false;
 		}
 
 		if (stringBuilder.length() > 0) {
@@ -60,24 +91,96 @@ public class ConvertStringToManifestStep implements ManifestParserStep {
 
 		switch (key) {
 
+		case "Archiver-Version":
+			manifest.setArchiverVersion(value);
+			break;
+
+		case "Build-Date":
+			break;
+
+		case "Build-Id":
+			break;
+
+		case "Build-Jdk":
+			manifest.setBuildJdk(value);
+			break;
+
+		case "Build-Jdk-Spec":
+			break;
+
+		case "Build-Number":
+			break;
+
+		case "Build-Revision":
+			break;
+
+		case "Build-Time":
+			break;
+
+		case "Build-Version":
+			break;
+
+		case "Built-By":
+			manifest.setBuiltBy(value);
+			break;
+
+		case "Built-At":
+			manifest.setBuiltAt(value);
+			break;
+
+		case "Built-Time":
+		case "Built-Date":
+			break;
+
 		case "Bundle-Activator":
 			manifest.setActivator(value);
+			break;
+
+		case "Bundle-ActivationPolicy":
 			break;
 
 		case "Bundle-Category":
 			manifest.setCategory(value);
 			break;
 
+		case "Bundle-Classpath":
 		case "Bundle-ClassPath":
 			manifest.setClassPath(value);
+			break;
+
+		case "Bundle-ContactAddress":
+			manifest.setContactAddress(value);
+			break;
+
+		case "Bundle-Contributors":
+			break;
+
+		case "Bundle-Copyright":
+			manifest.setCopyright(value);
+			break;
+
+		case "Bundle-Developers":
+			manifest.setDevelopers(value);
 			break;
 
 		case "Bundle-Description":
 			manifest.setDescription(value);
 			break;
 
+		case "Bundle-DocUrl":
 		case "Bundle-DocURL":
 			manifest.setDocURL(value);
+			break;
+
+		case "Bundle-Icon":
+			break;
+
+		case "Bundle-Localization":
+			manifest.setLocalization(value);
+			break;
+
+		case "Bundle-License":
+			manifest.setLicence(value);
 			break;
 
 		case "Bundle-ManifestVersion":
@@ -96,8 +199,21 @@ public class ConvertStringToManifestStep implements ManifestParserStep {
 			manifest.setRequiredExecutionEnvironment(value);
 			break;
 
+		case "Bundle-Requirements":
+			break;
+
+		case "Bundle-SCM":
+			manifest.setScm(value);
+			break;
+
+		case "Bundle-Source":
+			break;
+
 		case "Bundle-SymbolicName":
 			manifest.setSymbolicName(value);
+			break;
+
+		case "Bundle-Url":
 			break;
 
 		case "Bundle-Vendor":
@@ -108,8 +224,16 @@ public class ConvertStringToManifestStep implements ManifestParserStep {
 			manifest.setVersion(value);
 			break;
 
+		case "Created-By":
+			manifest.setCreatedBy(value);
+			break;
+
 		case "Export-Package":
 			manifest.setExportPackage(value);
+			break;
+
+		case "Export-Service":
+			manifest.setExportService(value);
 			break;
 
 		case "HomeDevice-MetaData":
@@ -122,6 +246,19 @@ public class ConvertStringToManifestStep implements ManifestParserStep {
 
 		case "Manifest-Version":
 			manifest.setManifestVersion(value);
+			break;
+
+		case "Provide-Capability":
+			manifest.setProvideCapability(value);
+			break;
+
+		case "Specification-Vendor":
+			break;
+
+		case "Specification-Title":
+			break;
+
+		case "Specification-Version":
 			break;
 
 		default:

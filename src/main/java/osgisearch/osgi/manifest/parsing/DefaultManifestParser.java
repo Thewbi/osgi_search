@@ -38,9 +38,16 @@ public class DefaultManifestParser implements ManifestParser {
 
 		convertStringToManifestStep.process(manifest, manifestAsStringTrimmed);
 		addExportedPackagesStep.process(manifest);
-		indexExportedPackagesStep.process(manifest);
+
+		if (indexExportedPackagesStep != null) {
+			indexExportedPackagesStep.process(manifest);
+		}
 
 		return manifest;
+	}
+
+	public void setIndexExportedPackagesStep(final IndexExportedPackagesStep indexExportedPackagesStep) {
+		this.indexExportedPackagesStep = indexExportedPackagesStep;
 	}
 
 }
