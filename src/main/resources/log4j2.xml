@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+	<Properties>
+		<!-- 
+		<Property name="LOG_PATTERN">%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} [%t] %-5level (%C{1}:%L) %m%n</Property>
+		<Property name="LOG_PATTERN">%d{HH:mm:ss,SSS} %-5p %m (%F:%L) in %t%n</Property>
+		-->
+		<Property name="LOG_PATTERN">%d{HH:mm:ss,SSS} [%t] %-5level (%F:%L) %m%n</Property>
+		<Property name="APP_LOG_ROOT">c:/temp</Property>
+	</Properties>
+
+	<Appenders>
+		<Console name="LogToConsole" target="SYSTEM_OUT">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+		</Console>
+	</Appenders>
+	
+	<Loggers>
+		<Root level="debug">
+			<AppenderRef ref="LogToConsole" />
+		</Root>
+	</Loggers>
+</Configuration>
